@@ -1576,12 +1576,7 @@ class Polygon extends MVCObject {
  */
 class Polyline extends MVCObject {
     constructor(opts) {
-        var _a, _b, _c;
         super();
-        this.map = null;
-        this.position = null;
-        this.zIndex = 0;
-        this.content = null;
         this.getDraggable = vi.fn().mockImplementation(() => false);
         this.getEditable = vi.fn().mockImplementation(() => false);
         this.getMap = vi
@@ -1610,12 +1605,6 @@ class Polyline extends MVCObject {
             .fn()
             .mockImplementation((visible) => { });
         this.path = new MVCArray();
-        this.map = (_a = opts === null || opts === void 0 ? void 0 : opts.map) !== null && _a !== void 0 ? _a : null;
-        this.position = (opts === null || opts === void 0 ? void 0 : opts.position)
-            ? new google.maps.LatLng(opts.position)
-            : null;
-        this.zIndex = (_b = opts === null || opts === void 0 ? void 0 : opts.zIndex) !== null && _b !== void 0 ? _b : 0;
-        this.content = (_c = opts === null || opts === void 0 ? void 0 : opts.content) !== null && _c !== void 0 ? _c : null;
     }
 }
 
@@ -1919,12 +1908,19 @@ class InfoWindow_ extends MVCObject {
 /* eslint-disable @typescript-eslint/no-unused-vars */
 class AdvancedMarkerElement extends HTMLElement {
     constructor(options) {
+        var _a, _b, _c;
         super();
         this.addListener = vi
             .fn()
             .mockImplementation((eventName, handler) => MapsEventListener);
         this.element = document.createElement("div");
         __registerMockInstance(this.constructor, this);
+        this.map = (_a = options === null || options === void 0 ? void 0 : options.map) !== null && _a !== void 0 ? _a : null;
+        this.position = (options === null || options === void 0 ? void 0 : options.position)
+            ? new google.maps.LatLng(options.position)
+            : null;
+        this.zIndex = (_b = options === null || options === void 0 ? void 0 : options.zIndex) !== null && _b !== void 0 ? _b : 0;
+        this.content = (_c = options === null || options === void 0 ? void 0 : options.content) !== null && _c !== void 0 ? _c : null;
     }
 }
 customElements.define("gmp-advanced-marker", AdvancedMarkerElement);
