@@ -53,12 +53,12 @@ export class AdvancedMarkerElement
     this.element = document.createElement("div");
 
     __registerMockInstance(this.constructor, this);
-    this.map = options?.map ?? null;
+    this.map = options?.map ?? undefined;
     this.position = options?.position
       ? new google.maps.LatLng(options.position)
-      : null;
-    this.zIndex = options?.zIndex ?? 0;
-    this.content = options?.content ?? null;
+      : undefined;
+    this.zIndex = options?.zIndex ?? undefined;
+    this.content = options?.content ?? undefined;
   }
 }
 
