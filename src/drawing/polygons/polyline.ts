@@ -20,8 +20,21 @@ import { MVCArray } from "../../maps/event/mvcarray";
 export class Polyline extends MVCObject implements google.maps.Polyline {
   constructor(opts?: google.maps.PolylineOptions | null) {
     super();
+
+    this.path = new MVCArray<google.maps.LatLng>();
+    this.map = opts?.map ?? null;
+    this.position = opts?.position
+      ? new google.maps.LatLng(opts.position)
+      : null;
+    this.zIndex = opts?.zIndex ?? 0;
+    this.content = opts?.content ?? null;
   }
 
+  public map: google.maps.Map | null = null;
+  public position: google.maps.LatLng | null = null;
+  public zIndex: number = 0;
+  public content: string | Node | null = null;
+  public path: google.maps.MVCArray<google.maps.LatLng>;
   public getDraggable = vi.fn().mockImplementation((): boolean => false);
   public getEditable = vi.fn().mockImplementation((): boolean => false);
   public getMap = vi
@@ -30,7 +43,7 @@ export class Polyline extends MVCObject implements google.maps.Polyline {
   public getPath = vi
     .fn()
     .mockImplementation(
-      (): google.maps.MVCArray<google.maps.LatLng> => new MVCArray()
+      (): google.maps.MVCArray<google.maps.LatLng> => this.path
     );
   public getVisible = vi.fn().mockImplementation((): boolean => false);
   public setDraggable = vi

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { LatLng } from "../../maps/coordinates/latlng";
+import { LatLng, LatLngBounds } from "../../maps/coordinates/latlng";
 import { MVCObject } from "../../maps/event/mvcobject";
 import { Map_ } from "../../maps/maps/map";
 
@@ -25,7 +25,7 @@ export class Circle extends MVCObject implements google.maps.Circle {
   public getBounds = vi
     .fn()
     .mockImplementation(
-      (): google.maps.LatLngBounds | null | undefined => null
+      (): google.maps.LatLngBounds | null | undefined => new LatLngBounds()
     );
   public getCenter = vi
     .fn()

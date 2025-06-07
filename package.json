@@ -1,10 +1,11 @@
 {
-  "name": "@googlemaps/jest-mocks",
-  "version": "2.22.6",
+  "name": "@googlemaps/vitetest-mocks",
+  "version": "1.0.0",
   "keywords": [
     "google",
     "maps",
-    "jest"
+    "vite",
+    "vitest"
   ],
   "homepage": "https://github.com/googlemaps/js-jest-mocks",
   "bugs": {

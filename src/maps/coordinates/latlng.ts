@@ -19,22 +19,30 @@ export class LatLng implements google.maps.LatLng {
     a: google.maps.LatLngLiteral | number,
     b?: boolean | number,
     c?: boolean
-  ) {}
+  ) {
+    if (typeof a === "object") {
+      this.lat = a.lat;
+      this.lng = a.lng;
+    } else {
+      this.lat = a;
+      this.lng = b as number;
+    }
+  }
 
+  public lat: number = 0;
+  public lng: number = 0;
   public equals = vi
     .fn()
     .mockImplementation((other: google.maps.LatLng): boolean => false);
-  public lat = vi.fn().mockImplementation((): number => 0);
-  public lng = vi.fn().mockImplementation((): number => 0);
+  public lat = vi.fn().mockImplementation((): number => this.lat);
+  public lng = vi.fn().mockImplementation((): number => this.lng);
   public toString = vi.fn().mockImplementation((): string => "");
   public toUrlValue = vi
     .fn()
     .mockImplementation((precision?: number): string => "");
-  public toJSON = vi
-    .fn()
-    .mockImplementation((): google.maps.LatLngLiteral => {
-      return { lat: 0, lng: 0 };
-    });
+  public toJSON = vi.fn().mockImplementation((): google.maps.LatLngLiteral => {
+    return { lat: this.lat, lng: this.lng };
+  });
 }
 
 export class LatLngBounds implements google.maps.LatLngBounds {

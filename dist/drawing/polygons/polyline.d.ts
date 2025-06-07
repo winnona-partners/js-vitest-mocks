@@ -16,6 +16,11 @@
 import { MVCObject } from "../../maps/event/mvcobject";
 export declare class Polyline extends MVCObject implements google.maps.Polyline {
     constructor(opts?: google.maps.PolylineOptions | null);
+    map: google.maps.Map | null;
+    position: google.maps.LatLng | null;
+    zIndex: number;
+    content: string | Node | null;
+    path: google.maps.MVCArray<google.maps.LatLng>;
     getDraggable: import("vitest").Mock<(...args: any[]) => any>;
     getEditable: import("vitest").Mock<(...args: any[]) => any>;
     getMap: import("vitest").Mock<(...args: any[]) => any>;

@@ -175,20 +175,28 @@ const importLibrary = vi.fn((name) => __awaiter(void 0, void 0, void 0, function
  */
 class LatLng {
     constructor(a, b, c) {
+        this.lat = 0;
+        this.lng = 0;
         this.equals = vi
             .fn()
             .mockImplementation((other) => false);
-        this.lat = vi.fn().mockImplementation(() => 0);
-        this.lng = vi.fn().mockImplementation(() => 0);
+        this.lat = vi.fn().mockImplementation(() => this.lat);
+        this.lng = vi.fn().mockImplementation(() => this.lng);
         this.toString = vi.fn().mockImplementation(() => "");
         this.toUrlValue = vi
             .fn()
             .mockImplementation((precision) => "");
-        this.toJSON = vi
-            .fn()
-            .mockImplementation(() => {
-            return { lat: 0, lng: 0 };
+        this.toJSON = vi.fn().mockImplementation(() => {
+            return { lat: this.lat, lng: this.lng };
         });
+        if (typeof a === "object") {
+            this.lat = a.lat;
+            this.lng = a.lng;
+        }
+        else {
+            this.lat = a;
+            this.lng = b;
+        }
     }
 }
 class LatLngBounds {
@@ -927,7 +935,7 @@ class Circle extends MVCObject {
         super();
         this.getBounds = vi
             .fn()
-            .mockImplementation(() => null);
+            .mockImplementation(() => new LatLngBounds());
         this.getCenter = vi
             .fn()
             .mockImplementation(() => new LatLng({ lat: 0, lng: 0 }));
@@ -1568,7 +1576,12 @@ class Polygon extends MVCObject {
  */
 class Polyline extends MVCObject {
     constructor(opts) {
+        var _a, _b, _c;
         super();
+        this.map = null;
+        this.position = null;
+        this.zIndex = 0;
+        this.content = null;
         this.getDraggable = vi.fn().mockImplementation(() => false);
         this.getEditable = vi.fn().mockImplementation(() => false);
         this.getMap = vi
@@ -1576,7 +1589,7 @@ class Polyline extends MVCObject {
             .mockImplementation(() => null);
         this.getPath = vi
             .fn()
-            .mockImplementation(() => new MVCArray());
+            .mockImplementation(() => this.path);
         this.getVisible = vi.fn().mockImplementation(() => false);
         this.setDraggable = vi
             .fn()
@@ -1596,6 +1609,13 @@ class Polyline extends MVCObject {
         this.setVisible = vi
             .fn()
             .mockImplementation((visible) => { });
+        this.path = new MVCArray();
+        this.map = (_a = opts === null || opts === void 0 ? void 0 : opts.map) !== null && _a !== void 0 ? _a : null;
+        this.position = (opts === null || opts === void 0 ? void 0 : opts.position)
+            ? new google.maps.LatLng(opts.position)
+            : null;
+        this.zIndex = (_b = opts === null || opts === void 0 ? void 0 : opts.zIndex) !== null && _b !== void 0 ? _b : 0;
+        this.content = (_c = opts === null || opts === void 0 ? void 0 : opts.content) !== null && _c !== void 0 ? _c : null;
     }
 }
 
@@ -2006,7 +2026,11 @@ const initialize = function () {
             },
             FeatureLayer,
             drawing: {}, // FIXME: missing implementation (#521)
-            geometry: {}, // FIXME: missing implementation (#299)
+            geometry: {
+                spherical: {
+                    computeDistanceBetween: vi.fn(),
+                },
+            }, // FIXME: missing implementation (#299)
             journeySharing: {}, // FIXME: missing implementation
             visualization: {}, // FIXME: missing implementation
         },

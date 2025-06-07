@@ -119,7 +119,11 @@ const initialize = function (): void {
       },
       FeatureLayer,
       drawing: {}, // FIXME: missing implementation (#521)
-      geometry: {}, // FIXME: missing implementation (#299)
+      geometry: {
+        spherical: {
+          computeDistanceBetween: vi.fn(),
+        },
+      }, // FIXME: missing implementation (#299)
       journeySharing: {}, // FIXME: missing implementation
       visualization: {}, // FIXME: missing implementation
     },
