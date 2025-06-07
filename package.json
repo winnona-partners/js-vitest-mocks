@@ -53,5 +53,8 @@
   },
   "prettier": {
     "trailingComma": "es5"
+  },
+  "dependencies": {
+    "vitest": "^3.2.2"
   }
 }

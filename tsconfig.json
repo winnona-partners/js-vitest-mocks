@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "lib": ["DOM", "ESNext", "ES2019"],
     "target": "ES6",
+    "types": ["vitest/globals"],
     "moduleResolution": "node"
   },
   "include": ["src/**/*"],
