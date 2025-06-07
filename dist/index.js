@@ -175,13 +175,13 @@ const importLibrary = vi.fn((name) => __awaiter(void 0, void 0, void 0, function
  */
 class LatLng {
     constructor(a, b, c) {
-        this.lat = 0;
-        this.lng = 0;
+        this.curLat = 0;
+        this.curLng = 0;
         this.equals = vi
             .fn()
             .mockImplementation((other) => false);
-        this.lat = vi.fn().mockImplementation(() => this.lat);
-        this.lng = vi.fn().mockImplementation(() => this.lng);
+        this.lat = vi.fn().mockImplementation(() => this.curLat);
+        this.lng = vi.fn().mockImplementation(() => this.curLng);
         this.toString = vi.fn().mockImplementation(() => "");
         this.toUrlValue = vi
             .fn()
@@ -190,12 +190,12 @@ class LatLng {
             return { lat: this.lat, lng: this.lng };
         });
         if (typeof a === "object") {
-            this.lat = a.lat;
-            this.lng = a.lng;
+            this.curLat = a.lat;
+            this.curLng = a.lng;
         }
         else {
-            this.lat = a;
-            this.lng = b;
+            this.curLat = a;
+            this.curLng = b;
         }
     }
 }
@@ -212,13 +212,13 @@ class LatLngBounds {
             .mockImplementation((point) => this);
         this.getCenter = vi
             .fn()
-            .mockImplementation(() => new google.maps.LatLng({ lat: 0, lng: 0 }));
+            .mockImplementation(() => new LatLng({ lat: 0, lng: 0 }));
         this.getNorthEast = vi
             .fn()
-            .mockImplementation(() => new google.maps.LatLng({ lat: 0, lng: 0 }));
+            .mockImplementation(() => new LatLng({ lat: 0, lng: 0 }));
         this.getSouthWest = vi
             .fn()
-            .mockImplementation(() => new google.maps.LatLng({ lat: 0, lng: 0 }));
+            .mockImplementation(() => new LatLng({ lat: 0, lng: 0 }));
         this.intersects = vi
             .fn()
             .mockImplementation((other) => false);
@@ -230,7 +230,7 @@ class LatLngBounds {
         });
         this.toSpan = vi
             .fn()
-            .mockImplementation(() => new google.maps.LatLng({ lat: 0, lng: 0 }));
+            .mockImplementation(() => new LatLng({ lat: 0, lng: 0 }));
         this.toString = vi.fn().mockImplementation(() => "");
         this.toUrlValue = vi
             .fn()
@@ -949,9 +949,7 @@ class Circle extends MVCObject {
         this.setCenter = vi
             .fn()
             .mockImplementation((center) => { });
-        this.setDraggable = vi
-            .fn()
-            .mockImplementation((draggable) => { });
+        this.setDraggable = vi.fn().mockImplementation((draggable) => { });
         this.setEditable = vi.fn().mockImplementation((editable) => { });
         this.setMap = vi.fn().mockImplementation((map) => { });
         this.setOptions = vi

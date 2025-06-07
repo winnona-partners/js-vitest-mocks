@@ -15,11 +15,11 @@
  */
 export declare class LatLng implements google.maps.LatLng {
     constructor(a: google.maps.LatLngLiteral | number, b?: boolean | number, c?: boolean);
-    lat: number;
-    lng: number;
+    curLat: number;
+    curLng: number;
     equals: import("vitest").Mock<(...args: any[]) => any>;
-    lat: number;
-    lng: number;
+    lat: import("vitest").Mock<(...args: any[]) => any>;
+    lng: import("vitest").Mock<(...args: any[]) => any>;
     toString: import("vitest").Mock<(...args: any[]) => any>;
     toUrlValue: import("vitest").Mock<(...args: any[]) => any>;
     toJSON: import("vitest").Mock<(...args: any[]) => any>;

@@ -21,21 +21,21 @@ export class LatLng implements google.maps.LatLng {
     c?: boolean
   ) {
     if (typeof a === "object") {
-      this.lat = a.lat;
-      this.lng = a.lng;
+      this.curLat = a.lat;
+      this.curLng = a.lng;
     } else {
-      this.lat = a;
-      this.lng = b as number;
+      this.curLat = a;
+      this.curLng = b as number;
     }
   }
 
-  public lat: number = 0;
-  public lng: number = 0;
+  public curLat: number = 0;
+  public curLng: number = 0;
   public equals = vi
     .fn()
     .mockImplementation((other: google.maps.LatLng): boolean => false);
-  public lat = vi.fn().mockImplementation((): number => this.lat);
-  public lng = vi.fn().mockImplementation((): number => this.lng);
+  public lat = vi.fn().mockImplementation((): number => this.curLat);
+  public lng = vi.fn().mockImplementation((): number => this.curLng);
   public toString = vi.fn().mockImplementation((): string => "");
   public toUrlValue = vi
     .fn()
@@ -72,17 +72,17 @@ export class LatLngBounds implements google.maps.LatLngBounds {
   public getCenter = vi
     .fn()
     .mockImplementation(
-      (): google.maps.LatLng => new google.maps.LatLng({ lat: 0, lng: 0 })
+      (): google.maps.LatLng => new LatLng({ lat: 0, lng: 0 })
     );
   public getNorthEast = vi
     .fn()
     .mockImplementation(
-      (): google.maps.LatLng => new google.maps.LatLng({ lat: 0, lng: 0 })
+      (): google.maps.LatLng => new LatLng({ lat: 0, lng: 0 })
     );
   public getSouthWest = vi
     .fn()
     .mockImplementation(
-      (): google.maps.LatLng => new google.maps.LatLng({ lat: 0, lng: 0 })
+      (): google.maps.LatLng => new LatLng({ lat: 0, lng: 0 })
     );
   public intersects = vi
     .fn()
@@ -100,7 +100,7 @@ export class LatLngBounds implements google.maps.LatLngBounds {
   public toSpan = vi
     .fn()
     .mockImplementation(
-      (): google.maps.LatLng => new google.maps.LatLng({ lat: 0, lng: 0 })
+      (): google.maps.LatLng => new LatLng({ lat: 0, lng: 0 })
     );
   public toString = vi.fn().mockImplementation((): string => "");
   public toUrlValue = vi
